@@ -1,11 +1,9 @@
 from math import *
-# take an input and split it down so that we can check each fuction
-# be able to throw an error if invalid syntax without the program quiting
 class Main:
     def __init__(self):
         self.order = [["(","^"],["*","/"],["+","-"]]
         self.invalid_syntax = ["'",'"',"£","$","&","@",":",";","#","[","]","{","}","_","¬","`","="]
-        self.valid_words = ["sin","cos","tan","floor","roof","pi","e","log","perm","comb","sinh","cosh","tanh","asinh","acosh","atanh","asin","acos","atan","quit"]
+        self.valid_words = ["sin","cos","tan","floor","roof","pi","e","log","perm","comb","sinh","cosh","tanh","asinh","acosh","atanh","asin","acos","atan","quit","q",""]
         self.error = False
         self.error_type = None
         self.running = True
@@ -47,7 +45,8 @@ class Main:
                     self.error = True
                     self.error_type = "Syntax Error"
                     break
-        if any(c.isalpha() and c.lower() not in ["q"] for c in self.input):
+                
+        if any(c.isalpha() for c in self.input):
             self.word_Vaildation()
         
         
