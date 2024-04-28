@@ -5,6 +5,7 @@ class Main:
     def __init__(self):
         self.order = [["(","^"],["*","/"],["+","-"]]
         self.invalid_syntax = ["'",'"',"£","$","&","@",":",";","#","[","]","{","}","_","¬","`","="]
+        self.valid_words = ["sin","cos","tan","floor","roof","pi","e","log","perm","comb","sinh","cosh","tanh","asinh","acosh","atanh","asin","acos","atan"]
         self.error = False
         self.error_type = None
         self.running = True
@@ -30,6 +31,7 @@ class Main:
             if char in self.invalid_syntax:
                 self.error = True
                 self.error_type = "Syntax Error"
+                break
                 
             if char == "(":
                 bracketsClose = False
@@ -44,7 +46,15 @@ class Main:
                 if bracketsClose == False:
                     self.error = True
                     self.error_type = "Syntax Error"
-                    
+                    break
+        if any(c.isalpha() for c in self.input):
+            self.word_Vaildation()
+        
+        
+    def word_Vaildation(self):
+        pass
+            
+    
     def throw_error(self):
         print(self.error_type)
         self.error = False
