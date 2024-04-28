@@ -5,7 +5,7 @@ class Main:
     def __init__(self):
         self.order = [["(","^"],["*","/"],["+","-"]]
         self.invalid_syntax = ["'",'"',"£","$","&","@",":",";","#","[","]","{","}","_","¬","`","="]
-        self.valid_words = ["sin","cos","tan","floor","roof","pi","e","log","perm","comb","sinh","cosh","tanh","asinh","acosh","atanh","asin","acos","atan"]
+        self.valid_words = ["sin","cos","tan","floor","roof","pi","e","log","perm","comb","sinh","cosh","tanh","asinh","acosh","atanh","asin","acos","atan","quit"]
         self.error = False
         self.error_type = None
         self.running = True
@@ -47,12 +47,32 @@ class Main:
                     self.error = True
                     self.error_type = "Syntax Error"
                     break
-        if any(c.isalpha() for c in self.input):
+        if any(c.isalpha() and c.lower() not in ["q"] for c in self.input):
             self.word_Vaildation()
         
         
     def word_Vaildation(self):
-        pass
+        
+        word = ""
+        
+        for x in range(len(self.input)):
+            
+            if self.input[x].isalpha():
+                word += self.input[x]
+                
+            else:
+                if word.lower() in self.valid_words:
+                    word = ""
+                    
+                else:
+                    self.error = True
+                    self.error_type = "Syntax Error"
+                    break
+                
+        if word.lower() not in self.valid_words:
+            self.error = True
+            self.error_type = "Syntax Error"
+                            
             
     
     def throw_error(self):
