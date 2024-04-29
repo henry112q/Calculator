@@ -7,12 +7,15 @@ class Main:
         # List of invalid characters in the input
         self.invalid_syntax = ["'",'"',"£","$","&","@",":",";","#","[","]","{","}","_","¬","`","="]
         # List of valid words for mathematical functions
-        self.valid_words = ["sin","cos","tan","floor","roof","pi","e","log","perm","comb","sinh","cosh","tanh","asinh","acosh","atanh","asin","acos","atan","quit","q",""]
+        self.valid_words = ["sin","cos","tan","floor","roof","pi","e","log","perm","comb","sinh","cosh","tanh","asinh","acosh","atanh","asin","acos","atan","quit","q","","r"]
         # Initialize error tracking
         self.error = False
         self.error_type = None
+        # to keep the program runninf
         self.running = True
+        #internal logic for conversions
         self.estimate = False
+        self.raidians = False
 
     def main(self):
         while self.running:
@@ -20,6 +23,8 @@ class Main:
             self.input = input("--> ")
             # Validate the input
             self.init_vaildate()
+            
+            self.math()
             # If there's an error, display it
             if self.error == True:
                 self.throw_error()
@@ -73,6 +78,20 @@ class Main:
         self.error = False
         self.error_type = None
 
+    def math(self):
+        if self.error == True:
+            return
+        #checks whether radians are used or not
+        if self.input[-2] or self.input[-1] == "~":
+            self.estimate = True
+        
+        if self.input[-2] or self.input[-1] == "r":
+            self.raidians = True
+
+        input_list = []
+        
+        
+        
 if __name__ == "__main__":
     calculator = Main()
     calculator.main()
