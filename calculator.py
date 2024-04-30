@@ -2,8 +2,9 @@ from math import *
 
 class Main:
     def __init__(self):
+        self.mathWordFunctions = ["sin","cos","tan","floor","roof","pi","e","log","perm","comb","sinh","cosh","tanh","asinh","acosh","atanh","asin","acos","atan"]
         # Define the order of operations
-        self.order = [["(","^"],["*","/"],["+","-"]]
+        self.order = [self.mathWordFunctions,["(","^"],["*","/"],["+","-"]]
         # List of invalid characters in the input
         self.invalid_syntax = ["'",'"',"£","$","&","@",":",";","#","[","]","{","}","_","¬","`","="]
         # List of valid words for mathematical functions
@@ -89,8 +90,6 @@ class Main:
             self.raidians = True
 
         input_list = []
-        
-        
         
 if __name__ == "__main__":
     calculator = Main()
