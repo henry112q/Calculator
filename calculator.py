@@ -80,42 +80,52 @@ class Main:
         self.error_type = None
 
     def primaryListCreation(self):
+        # Exit if there's an error or if the program is not running
         if self.error == True or self.running == False:
             return
+        # Check if the last two characters are "~" to indicate radians are used
         #checks whether radians are used or not
         if self.input[-2] or self.input[-1] == "~":
             self.estimate = True
         
+        # Check if the last character is "r" to indicate radians are used
         if self.input[-2] or self.input[-1] == "r":
             self.raidians = True
 
+        # Initialize an empty list to store the processed input
         self.input_list = []
         inputString = ""
+        # Iterate through each character in the input
         for char in self.input:
             if char == " ":
                 pass
+            # If the character is alphabetic and inputString is not empty, check if inputString is numeric
             elif char.isalpha() and inputString != "":
                 if inputString.isalpha() == False:
                     self.input_list.append(inputString)
                     inputString = char
                 else:
                     inputString += char
+            # If the character is numeric and inputString is not empty, check if inputString is numeric
             elif char.isnumeric() and inputString != "":
                 if inputString.isnumeric() == False:
                     self.input_list.append(inputString)
                     inputString = char
                 else:
                     inputString += char
+            # If the character is alphabetic, append it to inputString
             elif char.isalpha():
                 inputString += char
             elif char.isnumeric():
                 inputString += char
+            # If inputString is not empty, append it to input_list and reset inputString
             elif inputString != "":
                 self.input_list.append(inputString)
                 inputString = ""
                 self.input_list.append(char)
             else:
                 self.input_list.append(char)
+        # If inputString is not empty after the loop, append it to input_list
         if inputString != "":
             self.input_list.append(inputString)
             
