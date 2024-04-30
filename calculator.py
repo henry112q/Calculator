@@ -80,7 +80,7 @@ class Main:
         self.error_type = None
 
     def math(self):
-        if self.error == True:
+        if self.error == True or self.running == False:
             return
         #checks whether radians are used or not
         if self.input[-2] or self.input[-1] == "~":
