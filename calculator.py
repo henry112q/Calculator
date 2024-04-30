@@ -25,7 +25,7 @@ class Main:
             # Validate the input
             self.init_vaildate()
             
-            self.math()
+            self.primaryListCreation()
             # If there's an error, display it
             if self.error == True:
                 self.throw_error()
@@ -79,7 +79,7 @@ class Main:
         self.error = False
         self.error_type = None
 
-    def math(self):
+    def primaryListCreation(self):
         if self.error == True or self.running == False:
             return
         #checks whether radians are used or not
@@ -89,8 +89,36 @@ class Main:
         if self.input[-2] or self.input[-1] == "r":
             self.raidians = True
 
-        input_list = []
-        
+        self.input_list = []
+        inputString = ""
+        for char in self.input:
+            if char == " ":
+                pass
+            elif char.isalpha() and inputString != "":
+                if inputString.isalpha() == False:
+                    self.input_list.append(inputString)
+                    inputString = char
+                else:
+                    inputString += char
+            elif char.isnumeric() and inputString != "":
+                if inputString.isnumeric() == False:
+                    self.input_list.append(inputString)
+                    inputString = char
+                else:
+                    inputString += char
+            elif char.isalpha():
+                inputString += char
+            elif char.isnumeric():
+                inputString += char
+            elif inputString != "":
+                self.input_list.append(inputString)
+                inputString = ""
+                self.input_list.append(char)
+            else:
+                self.input_list.append(char)
+        if inputString != "":
+            self.input_list.append(inputString)
+            
 if __name__ == "__main__":
     calculator = Main()
     calculator.main()
