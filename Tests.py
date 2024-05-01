@@ -128,9 +128,14 @@ class Main:
         # If inputString is not empty after the loop, append it to input_list
         if inputString != "":
             self.input_list.append(inputString)
+
+        self.basicLogic()
         
     def basicLogic(self):
-        if all(item.isalpha == True , self.input_list )
+        if all(item.isalpha for item in self.input_list ):
+            print("Letters")
+            return
+            
 if __name__ == "__main__":
     calculator = Main()
     calculator.main()
