@@ -18,7 +18,8 @@ class Main:
         self.estimate = False
         self.raidians = False
         self.help = False
-
+        self.input_list = []
+    
     def main(self):
         while self.running:
             # Get user input
@@ -26,14 +27,20 @@ class Main:
             # Validate the input
             self.init_vaildate()
             
-            self.primaryListCreation()
-            # If there's an error or help request, display it
+            # Check for valid words in the input
+            if any(c.isalpha() for c in self.input):
+                self.word_Vaildation()
+                
+            self.primaryListCreation() # Ensure this is called before basicLogic
             
+            self.basicLogic() # Now, input_list should be defined
+            
+            # If there's an error or help request, display it
             if self.help == True:
                 self.Help()
             if self.error == True:
-                
                 self.throw_error()
+            
     def Help(self):
         print("The list of supported functions is",self.valid_words,"\nA list of invalid inputs is",self.invalid_syntax,"\nAll bracktes must be closed and syntax must be correct with most commands being followed by brackets par Perm and Comb \nThese must first have a number directly before and after with no brackets")
         self.help = False
@@ -64,9 +71,6 @@ class Main:
                     self.error = True
                     self.error_type = "Syntax Error"
                     break
-        # Check for valid words in the input
-        if any(c.isalpha() for c in self.input):
-            self.word_Vaildation()
 
     def word_Vaildation(self):
         word = ""
@@ -139,7 +143,42 @@ class Main:
         # If inputString is not empty after the loop, append it to input_list
         if inputString != "":
             self.input_list.append(inputString)
-        print(self.input_list)
+        
+    
+    def WordLogic(self):
+        pass
+    
+    def sublistLogic(self):
+        self.subSum = 0
+        for pos, item in enumerate(self.input_list):
+            if item.isnumeric() and self.subSum == 0:
+                self.subSum += item
+            elif item in ["+", "-", "*", "/"]:
+                print(f"Position {pos} is an operator: {item}")
+    
+    def basicLogic(self):
+        
+        if all(item.isalpha() for item in self.input_list ):
+            self.WordLogic()
+        
+        for pos in self.input_list:
+            if pos == "(":
+                count = 0
+                location = self.input_list.index(pos)
+                for posnum in range(location,len(self.input_list)):
+                    if self.input_list[posnum] == ")":
+                        count += 1
+                        break
+                    count += 1
+                self.sublist = []
+                for x in range(0,count):
+                    self.sublist.append(self.input_list[x+location])
+                for x in range(0,count):
+                    self.input_list.pop(location)
+                self.sublist.pop(0)
+                self.sublist.pop(-1)
+                print(self.sublist)
+                print(self.input_list)
         
 if __name__ == "__main__":
     calculator = Main()
