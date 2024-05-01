@@ -8,7 +8,7 @@ class Main:
         # List of invalid characters in the input
         self.invalid_syntax = ["'",'"',"£","$","&","@",":",";","#","[","]","{","}","_","¬","`","="]
         # List of valid words for mathematical functions
-        self.valid_words = ["sin","cos","tan","floor","roof","pi","e","log","perm","comb","sinh","cosh","tanh","asinh","acosh","atanh","asin","acos","atan","quit","q","","r"]
+        self.valid_words = ["sin","cos","tan","floor","roof","pi","e","log","perm","comb","sinh","cosh","tanh","asinh","acosh","atanh","asin","acos","atan","quit","q","","r","h","help"]
         # Initialize error tracking
         self.error = False
         self.error_type = None
@@ -17,6 +17,7 @@ class Main:
         #internal logic for conversions
         self.estimate = False
         self.raidians = False
+        self.help = False
 
     def main(self):
         while self.running:
@@ -26,14 +27,23 @@ class Main:
             self.init_vaildate()
             
             self.primaryListCreation()
-            # If there's an error, display it
+            # If there's an error or help request, display it
+            
+            if self.help == True:
+                self.Help()
             if self.error == True:
+                
                 self.throw_error()
-
+    def Help(self):
+        print("The list of supported functions is",self.valid_words,"\nA list of invalid inputs is",self.invalid_syntax,"\nAll bracktes must be closed and syntax must be correct with most commands being followed by brackets par Perm and Comb \nThese must first have a number directly before and after with no brackets")
+        self.help = False
+    
     def init_vaildate(self):
         # Check for quit command
         if self.input.lower() == "q" or self.input.lower() == "quit":
             self.running = False
+        if self.input.lower() == "h" or self.input.lower() == "help":
+            self.help = True
         # Check for invalid characters
         for char in self.input:
             if char in self.invalid_syntax:
@@ -80,17 +90,18 @@ class Main:
         self.error_type = None
 
     def primaryListCreation(self):
-        # Exit if there's an error or if the program is not running
-        if self.error == True or self.running == False:
+        # Exit if there's an error or if the program is not running or the user requires help
+        if self.error == True or self.running == False or self.help == True:
             return
-        # Check if the last two characters are "~" to indicate radians are used
-        #checks whether radians are used or not
-        if self.input[-2] or self.input[-1] == "~":
-            self.estimate = True
-        
-        # Check if the last character is "r" to indicate radians are used
-        if self.input[-2] or self.input[-1] == "r":
-            self.raidians = True
+        if len(self.input) >= 2:
+            # Check if the last two characters are "~" to indicate radians are used
+            #checks whether radians are used or not
+            if self.input[-2] or self.input[-1] == "~":
+                self.estimate = True
+            
+            # Check if the last character is "r" to indicate radians are used
+            if self.input[-2] or self.input[-1] == "r":
+                self.raidians = True
 
         # Initialize an empty list to store the processed input
         self.input_list = []
@@ -128,7 +139,8 @@ class Main:
         # If inputString is not empty after the loop, append it to input_list
         if inputString != "":
             self.input_list.append(inputString)
-            
+        print(self.input_list)
+        
 if __name__ == "__main__":
     calculator = Main()
     calculator.main()
