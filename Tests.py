@@ -132,7 +132,7 @@ class Main:
         self.basicLogic()
         
     def basicLogic(self):
-        if all(item.isalpha for item in self.input_list ):
+        if all(item.isalpha() for item in self.input_list ):
             print("Letters")
             return
             
