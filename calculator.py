@@ -143,20 +143,22 @@ class Main:
         # If inputString is not empty after the loop, append it to input_list
         if inputString != "":
             self.input_list.append(inputString)
-        
     
     def WordLogic(self):
-        pass
+        return
     
     def sublistLogic(self):
-        self.subSum = 0
-        for pos, item in enumerate(self.input_list):
-            if item.isnumeric() and self.subSum == 0:
-                self.subSum += item
-            elif item in ["+", "-", "*", "/"]:
-                print(f"Position {pos} is an operator: {item}")
-    
+        if any(item.isalpha() for item in self.sublist):
+            self.WordLogic
+            return
+        return
+        
+        
+        
     def basicLogic(self):
+        
+        if self.error == True or self.running == False or self.help == True:
+            return
         
         if all(item.isalpha() for item in self.input_list ):
             self.WordLogic()
@@ -179,7 +181,30 @@ class Main:
                 self.sublist.pop(-1)
                 print(self.sublist)
                 print(self.input_list)
-        
+                self.input_list.insert(location,self.sublist)
+                print(self.input_list)
+
+            if pos in ["*", "/"]:
+                location = self.input_list.index(pos)
+                oprator = pos
+                preNumber = self.input_list[location-1]
+                # Initialize an empty list to hold the sublist
+                sublist = [preNumber, oprator]
+                # Iterate through the remaining elements to find the next operator or end of list
+                for i in range(location+1, len(self.input_list)):
+                    if self.input_list[i] in ["+", "-"]:
+                        break
+                    sublist.append(self.input_list[i])
+                # Remove the elements from the original list
+                # Collect indices to remove
+                indices_to_remove = list(range(location-1, i))
+
+                # Remove items in reverse order to avoid index shifting
+                for index in sorted(indices_to_remove, reverse=True):
+                    self.input_list.pop(index)
+                # Insert the sublist back into the original list
+                self.input_list.insert(location-1, sublist)
+                print(self.input_list)
 if __name__ == "__main__":
     calculator = Main()
     calculator.main()
