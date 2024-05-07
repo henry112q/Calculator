@@ -162,6 +162,7 @@ class Main:
         
         if all(item.isalpha() for item in self.input_list ):
             self.WordLogic()
+            return
         
         for pos in self.input_list:
             if pos == "(":
